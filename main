@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+
+
+
+int main(){
+
+    char vehiculo;
+    int dias, i, descuadre_max= 0, dia_descuadre_max= 0;
+    float dinero, dinero_parcial = 0, descuadre_total = 0, a_num = 0, b_num =0 , c_num = 0;
+    cin>>dias;
+    for(i=1;i<=dias;i++){
+        cin>>dinero;
+        cin>>vehiculo;
+        while(vehiculo != 'D'){
+            if(vehiculo == 'A'){
+                a_num += 1;
+                dinero_parcial += 5000;
+            }
+            if(vehiculo == 'B'){
+                b_num += 1;
+                dinero_parcial += 7500;
+            }
+            if(vehiculo == 'C'){
+                c_num+= 1;
+                dinero_parcial += 18000;
+            }
+            cin>>vehiculo;
+        }
+        if(dinero_parcial != dinero){
+            if(dinero-dinero_parcial < 0){
+                cout<<"NO $"<<((dinero-dinero_parcial)+((dinero_parcial-dinero)*2))<<endl;
+                descuadre_total -= ((dinero-dinero_parcial)+((dinero_parcial-dinero)*2));
+                if((i > dia_descuadre_max) && (descuadre_max < ((dinero-dinero_parcial)+((dinero_parcial-dinero)*2)))){
+                    dia_descuadre_max = i;
+                    descuadre_max = ((dinero-dinero_parcial)+((dinero_parcial-dinero)*2));
+                }
+                dinero_parcial = 0;
+            }
+            else{
+                cout<<"NO $"<<(dinero-dinero_parcial)<<endl;
+                descuadre_total += (dinero-dinero_parcial);
+                if((i > dia_descuadre_max) && (descuadre_max < (dinero-dinero_parcial))){
+                    dia_descuadre_max = i;
+                    descuadre_max = ((dinero-dinero_parcial)+((dinero_parcial-dinero)*2));
+                }
+                dinero_parcial = 0;
+            }
+        }else{
+            cout<<"SI"<<endl;
+
+            dinero_parcial = 0;
+        }
+    }
+    cout<<"Total vendido por tipo de tiquete"<<endl;
+    cout<<"A $"<<(a_num*5000)<<endl;
+    cout<<"B $"<<(b_num*7500)<<endl;
+    cout<<"C $"<<(c_num*1800)<<endl;
+    cout<<endl;
+    cout<<endl;
+    cout<<"Dia de mayor descuadre y valor"<<endl;
+    cout<<dia_descuadre_max<<" $"<<descuadre_max;
+    cout<<endl;
+    cout<<endl;
+    cout<<"Total de descuadre en el mes"<<endl;
+    if(descuadre_total < 0){
+        cout<<"-$"<<((descuadre_total)*(-1));
+    }
+    else{
+        cout<<"$"<<descuadre_total;
+    }
+    cout<<endl;
+    cout<<endl;
+    cout<<"Porcentaje por tipo de tiquete"<<endl;
+    cout<<"A "<<((a_num*100)/(a_num+b_num+c_num))<<"%"<<endl;
+    cout<<"B "<<((b_num*100)/(a_num+b_num+c_num))<<"%"<<endl;
+    cout<<"C "<<((c_num*100)/(a_num+b_num+c_num))<<"%"<<endl;
+    return 0;
+}
